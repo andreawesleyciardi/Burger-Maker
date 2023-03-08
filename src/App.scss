@@ -1,2 +1,68 @@
 @use './assets/style/Params' as p;
 
+html {
+    @media (max-width :499px) {
+        font-size:70%;
+    }
+    @media (min-width :500px) {
+        font-size:75%;
+    }
+    @media (min-width :800px) {
+        font-size:85%;
+    }
+    @media (min-width :1000px) {
+        font-size:85%;
+    }
+    @media (min-width :1150px) {
+        font-size:92.5%;
+    }
+    @media (min-width :1300px) {
+        font-size:100%;
+    }
+    @media (min-width :1520px) {
+        font-size:110%;
+    }
+    @media (min-width :1700px) {
+        font-size:120%;
+    }
+}
+
+body {
+    color: p.$palette-text-light;
+    background-image: url('assets/images/cement.webp');
+    background-color: rgba(0,0,0,0.4);
+    background-blend-mode: darken;
+    background-position: top center;
+    background-size: cover;
+}
+
+body,
+#root {
+    width: 100vw;
+    min-height:100vh;
+    overflow-x: hidden;
+}
+
+#root {
+    position:relative;
+    display: grid;
+    grid-template-rows: auto max-content;
+}
+
+header,
+main,
+footer {
+    width: 100%;
+}
+
+main {
+    
+}
+
+footer {
+    height: 2rem;
+}
+
+input {
+    color: p.$palette-text-dark;
+}
