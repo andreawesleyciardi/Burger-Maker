@@ -29,18 +29,22 @@ html {
 
 body {
     color: p.$palette-text-light;
-    background-image: url('assets/images/cement.webp');
-    background-color: rgba(0,0,0,0.4);
+    // background-image: url('assets/images/cement.webp');
+    background-image: url('assets/images/burgerhouse2.webp');
+    // background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.8);
     background-blend-mode: darken;
-    background-position: top center;
-    background-size: cover;
+    background-position: center center;
+    background-size: 120% auto;
 }
 
 body,
 #root {
     width: 100vw;
     min-height:100vh;
+    max-height: 100vh;
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #root {
