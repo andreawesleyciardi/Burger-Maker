@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
-import Loader from './components/ui/Loader';
+import {Loader} from './components/ui/UI';
 
 import './App.scss';
 
@@ -17,6 +17,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
     const isAuth = () => {
+        console.log(localStorage.getItem("token"));
         return ((localStorage.getItem("token") !== '') && (localStorage.getItem("token") !== null));
     };
 
@@ -34,12 +35,12 @@ const App = () => {
                     } />
                     <Route path="app/*" element={
                         <React.Suspense fallback={<Loader />}>
-                            {
-                                isAuth() ?
+                            {/* {
+                                isAuth() ? */}
                                     <Private />
-                                :
+                                {/* :
                                     <Navigate to="/signin" />
-                            }
+                            } */}
                         </React.Suspense>
                     } />
                 </Routes>

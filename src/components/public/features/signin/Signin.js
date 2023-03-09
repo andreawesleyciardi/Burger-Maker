@@ -2,8 +2,7 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from 'react-router-dom';
 import {useMutation} from 'react-query';
 
-import Input from './../../../ui/Input';
-import Button from './../../../ui/Button';
+import {Button, Error, Input} from './../../../ui/UI';
 import logo from './../../../../assets/images/logo.svg';
 import {postSignin} from './../../../../assets/scripts/Services';
 
@@ -12,15 +11,16 @@ import './Signin.scss';
 
 
 const Signin = () => {
-    const { register , handleSubmit , setValue , getValues , watch , getFieldState , setError , clearErrors , trigger , control , formState: { errors , isSubmitting , isValid , isDirty } } = useForm({mode: 'onSubmit' ,defaultValues: {}});
+    const { register , handleSubmit , formState: { isSubmitting , isValid } } = useForm({mode: 'onSubmit' ,defaultValues: {}});
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const mutation = useMutation(postSignin, {
         onSuccess: (response) => {
-            // localStorage.setItem('token', response.headers.token);
-            localStorage.setItem('token', 'testtoken');
-            navigate('../app/editor');
+            localStorage.setItem('token', response.token);
+            setTimeout(() => {
+                navigate('/app/editor', {replace: true});
+            }, 200);
         }
     });
 
@@ -29,17 +29,16 @@ const Signin = () => {
     });
 
     return (
-        <main>
+        <main data-area="public">
             <form className="form-container" onSubmit={onSubmit}>
                 <img className="form-logo" src={logo} alt="logo" />
-                <Input type="text" {...register("name", {required: true})} />
-                <Input type="password" {...register("password", {required: true})} />
-                <Button type="submit" disabled={!isValid || mutation.isLoading}>Login</Button>
-
+                <Input type="text" {...register("name", {required: true})} placeholder="Username" />
+                <Input type="password" {...register("password", {required: true})} placeholder="Password" />
+                <Button type="submit" disabled={!isValid || isSubmitting || mutation.isLoading}>Login</Button>
                 {
                     mutation.isError
                     &&
-                        <p>ERROR: {mutation.error.message || 'Generic Error'}</p>
+                        <Error>Authentication failed. Please, try again.</Error>
                 }
             </form>
         </main>
