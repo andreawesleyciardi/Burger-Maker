@@ -6,7 +6,9 @@ import './Editor.scss';
 
 const Editor = () => {
     return (
-        <></>
+        <p>
+            EDITOR
+        </p>
     );
 }
 

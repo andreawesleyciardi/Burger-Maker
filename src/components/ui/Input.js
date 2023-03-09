@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 
@@ -15,8 +16,8 @@ const StyledInput = styled.input`
     border-radius: 2px;
 `;
 
-const Input = (props) => {
-    return <StyledInput {...props} />;
-};
+const Input = React.forwardRef((props, ref) => {
+    return <StyledInput {...props} ref={ref} />;
+});
 
 export default Input;
