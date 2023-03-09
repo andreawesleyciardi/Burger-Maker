@@ -5,6 +5,14 @@ $header-height: 3rem;
 header {
     height: $header-height;
     position: fixed;
+    background-color: rgba(p.$palette-background, 0.75);
+    display: flex;
+    align-items: center;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    .header__logo {
+        max-height: 50%;
+    }
 }
 
 main[data-area=private] {

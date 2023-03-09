@@ -26,7 +26,7 @@ const Private = () => {
     return (
         <>
             <header>
-                HEADER
+                <img className="header__logo" src={logo} />
             </header>
             <main data-area="private">
                 <Routes>

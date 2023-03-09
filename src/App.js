@@ -5,6 +5,9 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {Loader} from './components/ui/UI';
 
 import './App.scss';
+import './assets/fonts/Fonts.scss';
+
+import assignment from './assets/documents/assignment.pdf';
 
 
 
@@ -15,41 +18,30 @@ const queryClient = new QueryClient();
 
 
 
-const App = () => {
-    const isAuth = () => {
-        console.log(localStorage.getItem("token"));
-        return ((localStorage.getItem("token") !== '') && (localStorage.getItem("token") !== null));
-    };
-
-    return (
-        <>
-            <QueryClientProvider client={queryClient}>
-                <Routes>
-                    <Route path="/" exact element={
-                        <Navigate to="/signin" />
-                    } />
-                    <Route path="signin" exact element={
-                        <React.Suspense fallback={<Loader />}>
-                            <Signin />
-                        </React.Suspense>
-                    } />
-                    <Route path="app/*" element={
-                        <React.Suspense fallback={<Loader />}>
-                            {/* {
-                                isAuth() ? */}
-                                    <Private />
-                                {/* :
-                                    <Navigate to="/signin" />
-                            } */}
-                        </React.Suspense>
-                    } />
-                </Routes>
-            </QueryClientProvider>
-            <footer>
-                Footer
-            </footer>
-        </>
-    );
-};
+const App = () => (
+    <>
+        <QueryClientProvider client={queryClient}>
+            <Routes>
+                <Route path="/" element={
+                    <Navigate to="/signin" />
+                } />
+                <Route path="signin" exact element={
+                    <React.Suspense fallback={<Loader />}>
+                        <Signin />
+                    </React.Suspense>
+                } />
+                <Route path="app/*" element={
+                    <React.Suspense fallback={<Loader />}>
+                        <Private />
+                    </React.Suspense>
+                } />
+            </Routes>
+        </QueryClientProvider>
+        <footer>
+            <a href={ assignment } download>Assignment description</a>
+    	    <a href="mailto:developer@andreaciardi.com">Andrea Ciardi - developer@andreaciardi.com</a>
+        </footer>
+    </>
+);
 
 export default App;

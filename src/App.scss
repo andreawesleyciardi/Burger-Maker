@@ -30,12 +30,30 @@ html {
 body {
     color: p.$palette-text-light;
     // background-image: url('assets/images/cement.webp');
+    position: relative;
+}
+
+@keyframes scrollbackground {
+    0% { transform: translate(0%); }
+   50% { transform: translate(-50vw); }
+  100% { transform: translate(0%); }
+}
+
+body:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    min-width: 150vw;
+    min-height: 100vh;
     background-image: url('assets/images/burgerhouse2.webp');
+    // background-image: url('assets/images/burgerhouse.jpeg');
     // background-color: rgba(0,0,0,0.4);
     background-color: rgba(0,0,0,0.8);
     background-blend-mode: darken;
-    background-position: center center;
-    background-size: 120% auto;
+    background-position: center;
+    background-size: cover;
+    animation: scrollbackground 300s linear infinite;
 }
 
 body,
@@ -44,7 +62,6 @@ body,
     min-height:100vh;
     max-height: 100vh;
     overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 #root {
@@ -59,12 +76,30 @@ footer {
     width: 100%;
 }
 
-main {
-    
-}
-
 footer {
     height: 2rem;
+    position: relative;
+    background-color: rgba(p.$palette-background, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 70%;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    a {
+        color: #FFFFFF;
+        text-transform: none;
+        transition: color 200ms linear;
+        &:hover {
+            color: p.$palette-primary;
+        }
+    }
+}
+
+a {
+    outline: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
 }
 
 input {

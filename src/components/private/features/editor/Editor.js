@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { useQuery } from 'react-query';
+import _ from 'lodash';
 
 import { Ingredient } from './../../../../components/ui/UI';
 import { getIngredients } from './../../../../assets/scripts/Services';
@@ -11,10 +13,18 @@ import './Editor.scss';
 const Editor = () => {
     const bunBottom = { id: null, name: 'bun bottom', src: 'bun_bottom.png'};
     const bunTop = { id: null, name: 'bun top', src: 'bun_top.png'};
-    
-    const [ingredients, setIngredients] = useState([]);
 
-    const { data, error, isError, isLoading } = useQuery('ingredients', getIngredients);
+
+    
+    const [ingredients, setIngredients] = useState(localStorage.getItem('ingredients') !== null ? JSON.parse(localStorage.getItem('ingredients')) : []);
+
+    useEffect(() => {
+        localStorage.setItem('ingredients', JSON.stringify(ingredients));
+    }, [ingredients]);
+
+    const { data, isError, isLoading } = useQuery('ingredients', getIngredients);
+
+    const navigate = useNavigate();
 
     const addIngredient = useCallback((ingredient) => {
         setIngredients(([]).concat(ingredients, ingredient));
@@ -32,22 +42,38 @@ const Editor = () => {
         return <div>Loading...</div>
     }
     if (isError) {
-        return <div>Error! {error.message}</div>
+        navigate('/signin', {replace: true});
     }
 
     return (
         <div className="editor">
             <div className="burger">
-                <div className="burger-container">
-                    {
-                        ([bunBottom, ...ingredients, bunTop]).map((ingredient, index) => (
-                            <Ingredient {...ingredient} index={index} key={ingredient.name + index} onClick={removeIngredient} />
-                        ))
-                    }
+                <div>
+                    <div className="burger__container">
+                        {
+                            ([bunBottom, ...ingredients, bunTop]).map((ingredient, index) => (
+                                <Ingredient {...ingredient} index={index} key={ingredient.name + index} onClick={removeIngredient} />
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
             <div className="chalkboard">
-
+                <div className="chalkboard__container">
+                    <div>
+                        <h2>Burger-Builder</h2>
+                        <ul className="chalkboard__ingredients-list">
+                            {
+                                (Object.keys((_.groupBy(ingredients, 'name')))).map((ingredientName, index) => {
+                                    return (
+                                        <li><p className="chalkboard__ingredient-item" key={ingredientName}><span>{(ingredients.filter(ingredient => ingredient.name == ingredientName)).length}</span> {ingredientName}</p></li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <p className="chalkboard__instructions"># Choose the ingredients for your <del>nasty</del> Burger</p>
+                </div>
             </div>
             <div className="options">
                 <div className="options-container">
