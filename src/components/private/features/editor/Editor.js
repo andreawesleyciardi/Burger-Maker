@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import { useQuery } from 'react-query';
 import _ from 'lodash';
 
-import { Ingredient } from './../../../../components/ui/UI';
+import { Ingredient, Loader } from './../../../../components/ui/UI';
 import { getIngredients } from './../../../../assets/scripts/Services';
 
 import './Editor.scss';
@@ -39,7 +39,9 @@ const Editor = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return (
+            <Loader />
+        );
     }
     if (isError) {
         navigate('/signin', {replace: true});
@@ -66,7 +68,7 @@ const Editor = () => {
                             {
                                 (Object.keys((_.groupBy(ingredients, 'name')))).map((ingredientName, index) => {
                                     return (
-                                        <li><p className="chalkboard__ingredient-item" key={ingredientName}><span>{(ingredients.filter(ingredient => ingredient.name == ingredientName)).length}</span> {ingredientName}</p></li>
+                                        <li key={ingredientName}><p className="chalkboard__ingredient-item"><span>{(ingredients.filter(ingredient => ingredient.name === ingredientName)).length}</span> {ingredientName}</p></li>
                                     );
                                 })
                             }
