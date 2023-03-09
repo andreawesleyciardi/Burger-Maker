@@ -18,8 +18,10 @@ export async function postSignin(data) {
     return response.data;
 }
 
-export function getIngredients() {
-    return fetch(`${process.env.REACT_APP_APIS_BASE_URL}ingredients`, {
-        method: "GET"
-    })
+export async function getIngredients() {
+    const response = await authApi.get('ingredients', { headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`} });
+    return response.data;
+    // return fetch(`${process.env.REACT_APP_APIS_BASE_URL}ingredients`, {
+    //     method: "GET"
+    // })
 }

@@ -11,7 +11,7 @@ import './Signin.scss';
 
 
 const Signin = () => {
-    const { register , handleSubmit , formState: { isSubmitting , isValid } } = useForm({mode: 'onSubmit' ,defaultValues: {}});
+    const { register, handleSubmit, formState: { isSubmitting, isValid } } = useForm({ mode: 'onSubmit', defaultValues: {} });
 
     const navigate = useNavigate();
 

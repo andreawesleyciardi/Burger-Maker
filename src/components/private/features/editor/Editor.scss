@@ -1,0 +1,246 @@
+@use './../../../../assets/style/Params' as p;
+
+.editor {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "burger chalkboard" "burger options";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    .burger {
+        grid-area: burger;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        position: relative;
+        & > div {
+            position: absolute;
+            max-height: 100%;
+            .burger__container {
+                display: flex;
+                flex-direction: column-reverse;
+                padding-bottom: 2rem;
+
+                @keyframes wigglebun {
+                    0% { transform: rotate(1deg); }
+                    50% { transform: rotate(-1deg); }
+                    100% { transform: rotate(1deg); }
+                }
+                
+                @keyframes wigglepatty {
+                    0% { transform: rotate(2deg); }
+                    50% { transform: rotate(-2deg); }
+                    100% { transform: rotate(2deg); }
+                }
+                
+                @keyframes wigglebacon {
+                    0% { transform: rotate(-3deg); }
+                    50% { transform: rotate(3deg); }
+                    100% { transform: rotate(-3deg); }
+                }
+                
+                @keyframes wiggleegg {
+                    0% { transform: rotate(-2deg); }
+                    50% { transform: rotate(2deg); }
+                    100% { transform: rotate(-2deg); }
+                }
+
+                @keyframes wiggledefault {
+                    0% { transform: rotate(3deg); }
+                    50% { transform: rotate(-3deg); }
+                    100% { transform: rotate(3deg); }
+                }
+
+                transition: scale 200ms linear;
+                &:hover,
+                &:focus {
+                    scale: 0.8;
+                    .ingredient {
+                        margin-top: 0px !important;
+                        animation: wiggledefault 4s infinite;
+                    }
+                    .ingredient--type-burgerpatty {
+                        animation: wigglepatty 4s infinite !important;
+                    }
+                    .ingredient--type-bacon {
+                        animation: wigglebacon 4.5s infinite !important;
+                    }
+                    .ingredient--type-egg {
+                        animation: wiggleegg 3.5s infinite !important;
+                    }
+                    .ingredient--type-bunbottom,
+                    .ingredient--type-buntop {
+                        animation: wigglebun 10s infinite !important;
+                    }
+                }
+                .ingredient {
+                    z-index:1;
+                    transition: margin-top 200ms linear;
+                    &:hover:not(.ingredient--type-bunbottom):not(.ingredient--type-buntop) {
+                        filter: brightness(0.8);
+                    }
+                    &.ingredient--type-bunbottom {
+                        margin-top: -65px;
+                    }
+                    &.ingredient--type-burgerpatty {
+                        margin-top: -80px;
+                    }
+                    &.ingredient--type-bacon {
+                        margin-top: -61px;
+                    }
+                    &.ingredient--type-egg {
+                        margin-top: -41px;
+                    }
+                    &.ingredient--type-bunbottom,
+                    &.ingredient--type-buntop {
+                        cursor: default;
+                    }
+                    img {
+                        filter: drop-shadow(0px 2px 18px rgba(0, 0, 0, 0.3));
+                    }
+                }
+                .ingredient--type-bunbottom + .ingredient--type-buntop {
+                    margin-bottom: 65px;
+                }
+                .ingredient--type-bunbottom + .ingredient--type-bacon + .ingredient--type-buntop {
+                    margin-bottom: 25px;
+                }
+            }
+        }
+    }
+    .chalkboard {
+        grid-area: chalkboard;
+        display: flex;
+        padding: 2rem 3rem;
+        .chalkboard__container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            background-image: url('../../../../assets/images/chalk2.jpeg');
+            background-color: rgba(0,0,0,0.3);
+            background-blend-mode: darken;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border: solid rgba(255,255,255,0.3) 1px;
+            text-transform: uppercase;
+            padding: 1rem 1rem 1.5rem 5rem;
+            position: relative;
+            p,
+            h2 {
+                font-family: PWChalk;
+            }
+            h2 {
+                text-align: right;
+                transform-origin: center;
+                transform: rotateZ(6deg);
+                font-size: 2.5rem;
+                font-weight: 300;
+                text-shadow: 0px 4px 1px p.$palette-primary;
+                margin-bottom: 1rem;
+            }
+            p {
+                transform-origin: left;
+                transform: rotateZ(-2deg);
+            }
+            .chalkboard__ingredients-list {
+                overflow-y: scroll;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                li {
+                    list-style-type: none;
+                    p {
+                        font-size: 2rem;
+                        margin-bottom: 1rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 2rem;
+                        span {
+                            font-size:160%
+                        }
+                        &:nth-child(1) {
+                            transform: rotateZ(-2deg);
+                        }
+                        &:nth-child(2) {
+                            transform: rotateZ(2deg);
+                        }
+                        &:nth-child(3) {
+                            transform: rotateZ(-5deg);
+                        }
+                    }
+                }
+            }
+            .chalkboard__instructions {
+                width: 100%;
+                font-size: 1rem;
+                transform: rotateZ(2deg);
+                text-align: center;
+            }
+        }
+    }
+    .options {
+        grid-area: options;
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+            position: relative;
+            perspective: 500px;
+            &:before {
+                content: "";
+                width: 200%;
+                height: 250%;
+                position: absolute;
+                z-index: -1;
+                background-image: url('../../../../assets/images/cuttingboard2.jpeg');
+                background-color: rgba(0,0,0,0.1);
+                background-blend-mode: darken;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                transform: rotateX(50deg) translateX(15%) translateY(-50%);
+                border-radius: 1.5rem;
+            }
+
+            .ingredient {
+                width:10rem;
+                transition: scale 200ms linear, transform 200ms linear, filter 200ms linear;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+                &:hover {
+                    scale: 1.1;
+                    transform: translateY(1rem);
+                    img {
+                        filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.7));
+                    }
+                }
+                img {
+                    filter: drop-shadow(0px 4px 5px rgba(0,0,0,0.7));
+                }
+                p {
+                    color: #FFFFFF;
+                    text-shadow: 0px 2px 3px #000000;
+                    transition: color 200ms linear;
+                    font-size: 1rem;
+                }
+            }
+        }
+
+    }
+}
+
+

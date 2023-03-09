@@ -1,7 +1,8 @@
 import React, { useLayoutEffect } from 'react';
-import {Routes, Route} from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { Loader } from './../../components/ui/UI';
 import logo from './../../assets/images/logo.svg';
 
 import './Private.scss';
@@ -17,7 +18,7 @@ const Private = () => {
 
     useLayoutEffect(() => {
         if ((localStorage.getItem("token") === '') || (localStorage.getItem("token") === null)) {
-            navigate('/signin', {replace: true});
+            navigate('/signin', { replace: true });
         }
     }, []);
 
@@ -25,12 +26,12 @@ const Private = () => {
     return (
         <>
             <header>
-                HEADER
+                <img className="header__logo" src={logo} />
             </header>
             <main data-area="private">
                 <Routes>
-                    <Route path="editor" element={
-                        <React.Suspense fallback={<>...</>}>
+                    <Route path="editor" exact element={
+                        <React.Suspense fallback={<Loader />}>
                             <Editor />
                         </React.Suspense>
                     } />
