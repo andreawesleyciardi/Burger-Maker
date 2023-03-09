@@ -1,0 +1,12 @@
+@use './../../assets/style/Params' as p;
+
+$header-height: 3rem;
+
+header {
+    height: $header-height;
+    position: fixed;
+}
+
+main {
+    padding-top: $header-height;
+}

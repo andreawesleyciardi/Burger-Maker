@@ -1,0 +1,76 @@
+@use './../../../../assets/style/Params' as p;
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    width: 30rem;
+    max-width: 80%;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, .5);
+    border: solid 1px rgba(255, 255, 255, 0.5);
+    gap: 2rem;
+    padding: 5rem 3rem;
+    
+}
+.form-container:before {
+    content: "";
+    position: absolute;
+    background-image: url('./../../../../assets/images/burger.png');
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+    background-position: -50% center;
+    background-size: 140% auto;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.form-container:after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    filter: blur(10px);
+    margin: -20px;
+}
+
+.form-container .form-logo {
+    max-width: 80%;
+    height:4rem;
+    margin-bottom: 3rem;
+}
+
+.form-container input,
+.form-container button {
+    width: 80%;
+    max-width: 20rem;
+    font-size: 1rem;
+}
+
+.form-container button {
+    margin-top: 3rem;
+    background-color: #FFFFFF;
+}
+.form-container button:hover {
+    color: p.$palette-primary;
+}
