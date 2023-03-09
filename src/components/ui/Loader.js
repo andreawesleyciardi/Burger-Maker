@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import loader from './../../assets/images/loader.png';
+
 
 
 const StyledLoader = styled.div`
@@ -14,11 +16,26 @@ const StyledLoader = styled.div`
     left: 0;
     top: 0;
     z-index: 99;
-    background-color: rgba(0,0,0,0.5);
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
+        }
+    }
+
+    img {
+        width: 4rem;
+        animation: rotation 2s linear infinite;
+    }
 `;
 
-const Loader = () => {
-    return <StyledLoader><p>Loading...</p></StyledLoader>;
-};
+const Loader = () => (
+    <StyledLoader className="loader">
+        <img src={loader} alt="loader" />
+    </StyledLoader>
+);
 
 export default Loader;

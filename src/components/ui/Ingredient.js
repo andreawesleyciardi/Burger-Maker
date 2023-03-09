@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import TestRenderer from 'react-test-renderer';
 
 
 
@@ -23,7 +24,7 @@ const StyledIngredient = styled.button`
 const Ingredient = ({index, onClick, showName, ...ingredient}) => {
     return (
         <StyledIngredient className={`ingredient ingredient--type-${ingredient.name.replace(/ /g,'')}`} onClick={() => { onClick(ingredient, index) } } data-id={ingredient.id} data-index={index}>
-            <img src={process.env.REACT_APP_IMGS_BASE_URL + ingredient.src} />
+            <img src={process.env.REACT_APP_IMGS_BASE_URL + ingredient.src} alt={ingredient.name} />
             {
                 showName
                 &&
@@ -50,5 +51,13 @@ Ingredient.propTypes = {
     onClick: PropTypes.func,
     showName: PropTypes.bool,
 };
+
+
+
+const testIngredient = TestRenderer.create(
+    <Ingredient id={1} name="burger patty" src="burger-patty.png" index={0} onClick={() => true}></Ingredient>
+);
+
+console.log(testIngredient.toJSON());
 
 export default Ingredient;
